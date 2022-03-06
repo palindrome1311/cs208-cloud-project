@@ -11,11 +11,11 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 
 url = 'https://storage.googleapis.com/mledu-datasets/inception_v3_weights_tf_dim_ordering_tf_kernels_notop.h5'
-wget.download(url, out=f'{os.getcwd()}\\Data\\inception_v3_weights_tf_dim_ordering_tf_kernels_notop.h5')
+wget.download(url, out=f'inception_v3_weights_tf_dim_ordering_tf_kernels_notop.h5')
 
 
 # all the weights for the trained Inception V3
-local_weights_file = f'{os.getcwd()}\\Data\\inception_v3_weights_tf_dim_ordering_tf_kernels_notop.h5'
+local_weights_file = f'inception_v3_weights_tf_dim_ordering_tf_kernels_notop.h5'
 
 # the network shape of Inception V3 is integraded in Keras 
 pre_trained_model = InceptionV3(input_shape = (150, 150, 3), 
@@ -31,6 +31,7 @@ for layer in pre_trained_model.layers:
 
 # set layer "mixed 7" as end of pre-trained network 
 last_layer = pre_trained_model.get_layer('mixed7')
+last_output = last_layer.output
 
 # Flatten the output layer to 1 dimension
 x = layers.Flatten()(last_output)
@@ -49,21 +50,21 @@ model.compile(optimizer = RMSprop(lr=0.0001),
 
 
 url = 'https://storage.googleapis.com/mledu-datasets/cats_and_dogs_filtered.zip'
-wget.download(url, out=f'{os.getcwd()}\\Data\\cats_and_dogs_filtered.zip')
+wget.download(url, out=f'cats_and_dogs_filtered.zip')
 
 
 import zipfile
 
-local_zip = f'{os.getcwd()}\\Data\\cats_and_dogs_filtered.zip'
+local_zip = f'cats_and_dogs_filtered.zip'
 
 zip_ref = zipfile.ZipFile(local_zip, 'r')
 
-zip_ref.extractall(f'{os.getcwd()}\\Data')
+zip_ref.extractall(f'Data')
 zip_ref.close()
 
 
 # Define our example directories and files
-base_dir = f'{os.getcwd()}/cats_and_dogs_filtered'
+base_dir = f'Data/cats_and_dogs_filtered'
 
 # create directory names
 train_dir = os.path.join( base_dir, 'train')
