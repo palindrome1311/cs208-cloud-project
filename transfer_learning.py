@@ -8,6 +8,10 @@ from tensorflow.keras.optimizers import RMSprop
 
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
+import datetime
+
+print("*********************TRAINING TRANSFER LEARNING MODEL**************************************************")
+code_start_time = datetime.datetime.now()
 
 
 url = 'https://storage.googleapis.com/mledu-datasets/inception_v3_weights_tf_dim_ordering_tf_kernels_notop.h5'
@@ -103,6 +107,9 @@ validation_generator =  test_datagen.flow_from_directory( validation_dir,
                                                           class_mode  = 'binary', 
                                                           target_size = (150, 150))
 
+
+train_start_time = datetime.datetime.now()
+
 history = model.fit(
             train_generator,
             validation_data = validation_generator,
@@ -111,3 +118,14 @@ history = model.fit(
             validation_steps = 50,
             verbose = 2)
 
+train_end_time = datetime.datetime.now()
+
+
+code_end_time = datetime.datetime.now()
+
+
+c_train = train_end_time - train_start_time
+c=code_end_time-code_start_time
+print('Time Required in training seconds - ',c_train.total_seconds())
+print('Time Required in code to run seconds - ',c.total_seconds())
+print('**********************************TRANSFER LEARNING CODE ENDED*******************************')
